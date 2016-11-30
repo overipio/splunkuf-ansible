@@ -1,0 +1,16 @@
+---
+# playbook copies over outputs.yml for the uf
+
+- name: template out outputs.conf
+  become: yes
+  become_user: "{{ splunkforwarder_system_user }}"
+  tags:
+   - install
+   - security
+  template: 
+    src: opt/splunkforwarder/etc/system/local/outputs.conf 
+    dest: "{{ splunkforwarder_path }}/etc/system/local" 
+    owner: "{{ splunkforwarder_system_user }}" 
+    group: "{{ splunkforwarder_system_user }}" 
+    mode: 0755
+  notify: restart splunk

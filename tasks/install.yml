@@ -1,0 +1,70 @@
+---
+# This playbook install the package via the targz method (system agnostic)
+
+- name: add splunk user group to system
+  become: yes
+  tags:
+   - install
+   - security
+  group: 
+    name: "{{ splunkforwarder_system_user }}" 
+    state: present
+
+- name: add splunk user
+  become: yes
+  tags:
+   - install
+   - security
+  user: 
+    name: "{{ splunkforwarder_system_user }}"
+    comment: "Splunk service user" 
+    shell: /usr/sbin/nologin 
+    groups: splunk 
+    createhome: no 
+
+- name: checking if splunk is installed
+  tags: install
+  stat: 
+    path: "{{ splunkforwarder_path }}"
+  register: splunk_path
+
+- name: splunk is installed
+  tags: install
+  debug: 
+    msg: "splunk is already installed under {{ splunkforwarder_path }}"
+  when: splunk_path.stat.exists
+
+- name: get splunk binary
+  tags: install
+  get_url: 
+    url: "{{ splunkforwarder_url }}" 
+    dest: "/tmp/{{ splunkforwarder_filename }}"
+    mode: 0775
+    checksum: "{{ splunkforwarder_md5 }}"
+
+- name: install splunk binary
+  become: yes
+  tags:
+   - install
+  unarchive: 
+    src: "/tmp/{{ splunkforwarder_filename }}" 
+    dest: /opt/ 
+    owner: "{{ splunkforwarder_system_user }}" 
+    group: "{{ splunkforwarder_system_user }}" 
+    creates: "{{ splunkforwarder_path }}/bin/splunk"
+  when: splunk_path.stat.exists == false
+
+- name: accept license and start splunk
+  tags:
+   - install
+  shell: /opt/splunkforwarder/bin/splunk start --accept-license
+  become: yes
+  become_user: "{{ splunkforwarder_system_user }}"
+  when: splunk_path.stat.exists == false
+
+- name: enable boot-start
+  become: yes
+  tags:
+   - install
+  shell: /opt/splunkforwarder/bin/splunk enable boot-start
+  when: splunk_path.stat.exists == false and splunkforwarder_start_on_boot

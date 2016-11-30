@@ -1,0 +1,38 @@
+---
+language: python
+python: "2.7"
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+    - os: linux
+      dist: centos
+    - os: linux
+      dist: jessie
+
+# Install ansible
+addons:
+  apt:
+    packages:
+    - python-pip
+
+install:
+  # Install ansible
+  - pip install ansible
+
+  # Check ansible version
+  - ansible --version
+
+  # Create ansible.cfg with correct roles_path
+  - "printf '[defaults]\nroles_path=../' >ansible.cfg"
+
+script:
+  # Basic role syntax check
+  - ansible-playbook tests/provision.yml -i tests/inventory --syntax-check
+
+  # Run the install playbook
+  - ansible-playbook tests/provision.yml -i tests/inventory
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

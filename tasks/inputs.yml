@@ -1,0 +1,17 @@
+---
+# playbook copies over inputs.conf for the uf
+
+- name: copy inputs.conf 
+  become: yes
+  become_user: "{{ splunkforwarder_system_user }}"
+  tags:
+   - install
+   - security
+  template: 
+    src: opt/splunkforwarder/etc/system/local/inputs.conf 
+    dest: "{{ splunkforwarder_path }}/etc/system/local" 
+    owner: "{{ splunkforwarder_system_user }}" 
+    group: "{{ splunkforwarder_system_user }}" 
+    mode: 0755
+  notify: restart splunk
+

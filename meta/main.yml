@@ -1,0 +1,26 @@
+galaxy_info:
+  author: Evin Callahan
+  description: Role to setup a machine with splunk forwarder install and configuration
+  company: OverIP Inc.
+
+  issue_tracker_url: https://github.com/overipio/splunkuf-ansible/issues
+  license: MIT
+  min_ansible_version: 2.0
+
+  platforms:
+  - name: Ubuntu
+    versions:
+      - all
+  - name: Debian
+    versions:
+      - all
+  - name: CentOS
+    versions:
+      - all
+
+  galaxy_tags: 
+    - splunk
+    - splunkforwarder
+    - splunk forwarder
+
+dependencies: []
