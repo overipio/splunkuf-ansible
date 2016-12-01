@@ -1,15 +1,22 @@
 ---
 language: python
-python: "2.7"
+python: 2.7
+
+sudo: required
+dist: xenial
+env: OS=xenial
 
 matrix:
   include:
     - os: linux
       dist: trusty
+      env: OS=trusty
     - os: linux
       dist: centos
+      env: OS=centos
     - os: linux
       dist: jessie
+      env: OS=jessie
 
 # Install ansible
 addons:
@@ -24,15 +31,12 @@ install:
   # Check ansible version
   - ansible --version
 
-  # Create ansible.cfg with correct roles_path
-  - "printf '[defaults]\nroles_path=../' >ansible.cfg"
-
 script:
   # Basic role syntax check
   - ansible-playbook tests/provision.yml -i tests/inventory --syntax-check
 
   # Run the install playbook
-  - ansible-playbook tests/provision.yml -i tests/inventory
+  - ansible-playbook tests/provision.yml -i tests/inventory -c local -e splunkforwarder_get_via_curl=yes
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

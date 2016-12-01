@@ -34,6 +34,10 @@
     msg: "splunk is already installed under {{ splunkforwarder_path }}"
   when: splunk_path.stat.exists
 
+- name: get package via curl
+  shell: "curl -sL -o /tmp/{{ splunkforwarder_filename }} '{{ splunkforwarder_url }}'"
+  when: splunkforwarder_get_via_curl | bool
+
 - name: get splunk binary
   tags: install
   get_url: 
@@ -59,7 +63,6 @@
    - install
   shell: /opt/splunkforwarder/bin/splunk start --accept-license
   become: yes
-  become_user: "{{ splunkforwarder_system_user }}"
   when: splunk_path.stat.exists == false
 
 - name: enable boot-start

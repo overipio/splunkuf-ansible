@@ -11,6 +11,7 @@ splunkforwarder_start_on_boot: yes
 splunkforwarder_url: 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=6.5.1&product=universalforwarder&filename=splunkforwarder-6.5.1-f74036626f0c-Linux-x86_64.tgz&wget=true'
 splunkforwarder_filename: 'splunkforwarder-6.5.1-f74036626f0c-Linux-x86_64.tgz'
 splunkforwarder_md5: 'md5:e8468b95b4ca03f73f33714a4430c82e'
+splunkforwarder_get_via_curl: no
 
 # AUTH RELATED
 # login specific stuff

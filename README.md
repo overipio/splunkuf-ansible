@@ -18,6 +18,7 @@ At the moment, the entire input/output config files for splunk are configured vi
 splunkforwarder_system_user: splunk
 splunkforwarder_path: /opt/splunkforwarder
 splunkforwarder_start_on_boot: yes
+splunkforwarder_get_via_curl: no
 
 # PACKAGE LOCATION
 # splunk uf binary to install. 
@@ -55,5 +56,5 @@ Example Playbook
 ```yaml
 - hosts: servers
   roles:
-    - splunkuf
+    - overipio.splunk-universalforwarder
 ```

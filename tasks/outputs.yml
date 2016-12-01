@@ -3,10 +3,8 @@
 
 - name: template out outputs.conf
   become: yes
-  become_user: "{{ splunkforwarder_system_user }}"
   tags:
-   - install
-   - security
+   - configure
   template: 
     src: opt/splunkforwarder/etc/system/local/outputs.conf 
     dest: "{{ splunkforwarder_path }}/etc/system/local" 
