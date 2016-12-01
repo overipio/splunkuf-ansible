@@ -1,6 +1,8 @@
 Splunk Universal Forwarder Ansible role
 =======================================
 
+[![Build Status](https://travis-ci.org/overipio/splunkuf-ansible.svg?branch=master)](https://travis-ci.org/overipio/splunkuf-ansible)
+
 > Basic install and configuration of a splunk forwarder
 
 
