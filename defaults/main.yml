@@ -21,14 +21,14 @@ splunkforwarder_pass: changeme
 # CONFIG FILE CONTENTS
 # Likely a better way to do this, but to get started, here are the config files
 # we want to deploy to the system
-splunkforwarder_outputs: >
+splunkforwarder_outputs: |
   defaultGroup = primary
 
   [tcpout:primary]
   server = localhost:9997
 
 # add all the input you want here, basic default
-splunkforwarder_inputs: >
+splunkforwarder_inputs: |
   [default]
   index         = default
 
