@@ -45,6 +45,7 @@
     dest: "/tmp/{{ splunkforwarder_filename }}"
     mode: 0775
     checksum: "{{ splunkforwarder_md5 }}"
+  when: splunk_path.stat.exists == false
 
 - name: install splunk binary
   become: yes
