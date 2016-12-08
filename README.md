@@ -75,3 +75,4 @@ Add additional monitors to an existing installation
 
   roles: 
     - overipio.splunk-universalforwarder
+```
