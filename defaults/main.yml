@@ -18,6 +18,10 @@ splunkforwarder_get_via_curl: no
 splunkforwarder_user: admin
 splunkforwarder_pass: changeme
 
+# DEPLOYMENT SERVER
+# Set if using a Splunk Deploment Server
+# splunkforwarder_deployment_server:
+
 # CONFIG FILE CONTENTS
 # Likely a better way to do this, but to get started, here are the config files
 # we want to deploy to the system

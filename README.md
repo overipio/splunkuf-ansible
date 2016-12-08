@@ -31,6 +31,10 @@ splunkforwarder_md5: 'md5:e8468b95b4ca03f73f33714a4430c82e'
 splunkforwarder_user: admin
 splunkforwarder_pass: changeme
 
+# DEPLOYMENT SERVER
+# Set if using a Splunk Deploment Server
+# splunkforwarder_deployment_server:
+
 # CONFIG FILE CONTENTS
 # Likely a better way to do this, but to get started, here are the config files
 # we want to deploy to the system
