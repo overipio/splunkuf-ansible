@@ -1,16 +1,26 @@
 ---
 # playbook copies over inputs.conf for the uf
 
-- name: template out inputs.conf 
+- name: create inputs.conf
   become: yes
   tags:
    - configure
-  template: 
-    src: opt/splunkforwarder/etc/system/local/inputs.conf 
-    dest: "{{ splunkforwarder_path }}/etc/system/local" 
-    owner: "{{ splunkforwarder_system_user }}" 
-    group: "{{ splunkforwarder_system_user }}" 
+  file:
+    path: "{{ splunkforwarder_path }}/etc/system/local/inputs.conf"
+    state: touch
+    owner: "{{ splunkforwarder_system_user }}"
+    group: "{{ splunkforwarder_system_user }}"
     mode: 0755
+
+- name: default inputs.conf 
+  become: yes
+  tags:
+   - configure
+  blockinfile:
+    dest: "{{ splunkforwarder_path }}/etc/system/local/inputs.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK inputs.conf"
+    block: |
+      {{ splunkforwarder_inputs }}
   notify: restart splunk
 
 - name: add monitors to inputs.conf
@@ -25,6 +35,5 @@
       {% if item.index is defined %}index = {{ item.index }} {% endif %} 
       {% if item.sourcetype is defined %}sourcetype = {{ item.sourcetype }} {% endif %} 
       {% if item.source is defined %}source = {{ item.source }} {% endif %} 
-  with_items: "{{ splunkforwarder_inputs_monitor }}"
-  when: splunkforwarder_inputs_monitor is defined
+  with_items: "{{ splunkforwarder_inputs_monitor|default([]) }}"
   notify: restart splunk
