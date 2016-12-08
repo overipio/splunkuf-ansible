@@ -46,7 +46,7 @@ splunkforwarder_outputs: |
 # add all the input you want here, basic default
 splunkforwarder_inputs: |
   [default]
-  index         = default
+  index         = {{ splunkforwarder_default_index }}
 
   [monitor://$SPLUNK_HOME/var/log/splunk]
   index = _internal
