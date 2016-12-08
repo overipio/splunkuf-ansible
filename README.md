@@ -32,7 +32,7 @@ splunkforwarder_user: admin
 splunkforwarder_pass: changeme
 
 # DEPLOYMENT SERVER
-# Set if using a Splunk Deploment Server
+# Set if using a Splunk Deployment Server
 # splunkforwarder_deployment_server:
 
 # CONFIG FILE CONTENTS
