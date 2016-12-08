@@ -13,3 +13,18 @@
     mode: 0755
   notify: restart splunk
 
+- name: add monitors to inputs.conf
+  become: yes
+  tags:
+   - configure
+  blockinfile:
+    dest: "{{ splunkforwarder_path }}/etc/system/local/inputs.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{item.path}}"
+    block: |
+      [monitor://{{ item.path }}]
+      {% if item.index is defined %}index = {{ item.index }} {% endif %} 
+      {% if item.sourcetype is defined %}sourcetype = {{ item.sourcetype }} {% endif %} 
+      {% if item.source is defined %}source = {{ item.source }} {% endif %} 
+  with_items: "{{ splunkforwarder_inputs_monitor }}"
+  when: splunkforwarder_inputs_monitor is defined
+  notify: restart splunk
