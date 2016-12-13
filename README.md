@@ -31,6 +31,10 @@ splunkforwarder_md5: 'md5:e8468b95b4ca03f73f33714a4430c82e'
 splunkforwarder_user: admin
 splunkforwarder_pass: changeme
 
+# DEPLOYMENT SERVER
+# Set if using a Splunk Deployment Server
+# splunkforwarder_deployment_server:
+
 # DEFAULT INDEX
 splunkforwarder_default_index: default
 

@@ -5,3 +5,4 @@
 - include: security.yml
 - include: outputs.yml
 - include: inputs.yml
+- include: deploymentclient.yml
