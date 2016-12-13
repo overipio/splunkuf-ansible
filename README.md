@@ -35,6 +35,9 @@ splunkforwarder_pass: changeme
 # Set if using a Splunk Deployment Server
 # splunkforwarder_deployment_server:
 
+# DEFAULT INDEX
+splunkforwarder_default_index: default
+
 # CONFIG FILE CONTENTS
 # Likely a better way to do this, but to get started, here are the config files
 # we want to deploy to the system
@@ -47,7 +50,7 @@ splunkforwarder_outputs: |
 # add all the input you want here, basic default
 splunkforwarder_inputs: |
   [default]
-  index         = default
+  index         = {{ splunkforwarder_default_index }}
 
   [monitor://$SPLUNK_HOME/var/log/splunk]
   index = _internal
@@ -60,5 +63,20 @@ Example Playbook
 ```yaml
 - hosts: servers
   roles:
+    - overipio.splunk-universalforwarder
+```
+
+Add additional monitors to an existing installation
+
+```yaml
+- hosts: servers
+  vars:
+    - splunkforwarder_inputs_monitor:
+        - path: "/opt/applications/helloworld/*.log"
+          sourcetype: application_log
+          index: differentindex
+        - path: "/opt/foo/bar.log"
+
+  roles: 
     - overipio.splunk-universalforwarder
 ```
