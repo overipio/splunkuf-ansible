@@ -53,7 +53,8 @@
    - install
   unarchive: 
     src: "/tmp/{{ splunkforwarder_filename }}" 
-    dest: /opt/ 
+    dest: /opt/
+    copy: no
     owner: "{{ splunkforwarder_system_user }}" 
     group: "{{ splunkforwarder_system_user }}" 
     creates: "{{ splunkforwarder_path }}/bin/splunk"
