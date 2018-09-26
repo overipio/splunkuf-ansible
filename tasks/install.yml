@@ -65,10 +65,11 @@
   tags:
     - install
   copy:
-    dest: "{{ splunkforwarder_path }}/etc/system/local/user.seed"
+    dest: "{{ splunkforwarder_path }}/etc/system/local/user-seed.conf"
     owner: root
     mode: 0600
     content: |
+      [user-info]
       USERNAME = {{ splunkforwarder_user }}
       PASSWORD = {{ splunkforwarder_pass }}
 - name: accept license and start splunk
