@@ -60,6 +60,17 @@
     creates: "{{ splunkforwarder_path }}/bin/splunk"
   when: splunk_path.stat.exists == false
 
+- name: create user.seed file
+  become: yes
+  tags:
+    - install
+  copy:
+    dest: "{{ splunkforwarder_path }}/etc/system/local/user.seed"
+    owner: root
+    mode: 0600
+    content: |
+      USERNAME = {{ splunkforwarder_user }}
+      PASSWORD = {{ splunkforwarder_pass }}
 - name: accept license and start splunk
   tags:
    - install
