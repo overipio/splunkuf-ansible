@@ -63,7 +63,7 @@
 - name: accept license and start splunk
   tags:
    - install
-  shell: /opt/splunkforwarder/bin/splunk start --accept-license
+  shell: /opt/splunkforwarder/bin/splunk start --accept-license --answer-yes --no-prompt
   become: yes
   when: splunk_path.stat.exists == false
 
